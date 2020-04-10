@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/blogs
+content-type: application/json
+
+{
+    "title": "How to Develop A Thing",
+    "author": "Various Artists",
+    "url": "/thing",
+    "thanks": 6
+}
