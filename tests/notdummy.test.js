@@ -42,6 +42,13 @@ const blogs = [
         author: "Robert C. Martin",
         url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
         thanks: 0
+    },
+    {
+        _id: "a7fa67ftg6a7fg6a7fgafgafyia6fgaifg6a",
+        title: "Not a Real Blog",
+        author: "Question Mark",
+        url: "blackhole://vacuum",
+        thanks: -0
     }
 ]
 
@@ -80,5 +87,13 @@ describe("Favorite blog", () => {
             Author: ${result.author}
             Times thanked: ${result.thanks}`)
         expect(result.thanks).toEqual(12)
+    })
+})
+
+describe("Busiest author", () => {
+    test("within a collection of blogs is the author whose name appears most often", () => {
+        const result = tester.mostBlogs(blogs)
+        console.log("Most blogs written:", result)
+        expect(result.blogs).toEqual(3)
     })
 })
