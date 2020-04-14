@@ -44,6 +44,31 @@ const mostBlogs = (blogs) => {
     return mostBusy
 }
 
+const mostThanked = (blogs) => {
+    let individualThanks = []
+    blogs.forEach(blog => {
+        if (individualThanks[blog.author] === undefined) {
+            individualThanks[blog.author] = 0
+        }
+        individualThanks[blog.author] = individualThanks[blog.author] + blog.thanks
+    })
+    let mostThanksThusFar = 0
+    Object.values(individualThanks).map(value => {
+        if (value > mostThanksThusFar) {
+            mostThanksThusFar = value
+            return mostThanksThusFar
+        }
+    })
+    const mostThankedAuthor = underscore.findKey(individualThanks, value => {
+        return value === mostThanksThusFar
+    })
+    const mostThanked = {
+        author: mostThankedAuthor,
+        thanks: mostThanksThusFar
+    }
+    return mostThanked
+}
+
 const dummy = () => {
     return 1
 }
@@ -52,5 +77,6 @@ module.exports = {
     timesThanked,
     favoriteBlog,
     mostBlogs,
+    mostThanked,
     dummy
 }

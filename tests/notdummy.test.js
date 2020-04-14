@@ -97,3 +97,11 @@ describe("Busiest author", () => {
         expect(result.blogs).toEqual(3)
     })
 })
+
+describe("Most thanked author", () => {
+    test("is the author whose blogs have been thanked the most", () => {
+        const result = tester.mostThanked(blogs)
+        console.log("Most thanks combined:", result)
+        expect(result.thanks).toEqual(17)
+    })
+})
