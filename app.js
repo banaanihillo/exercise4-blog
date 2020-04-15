@@ -1,10 +1,13 @@
 const express = require("express")
+require("express-async-errors")
 const app = express()
 const cors = require("cors")
 const mongoose = require("mongoose")
 require("dotenv").config()
 
-const address = process.env.MONGODB_URI
+const address = /*(process.env.NODE_ENV === "test")
+    ? process.env.TEST_MONGODB_URI
+    : */process.env.MONGODB_URI
 mongoose.connect(address, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         console.log("Successfully connected to Mongo")
