@@ -14,7 +14,7 @@ router.post("/", async (request, response) => {
         title: body.title,
         author: body.author,
         url: body.url,
-        thanks: body.thanks
+        thanks: body.thanks || 0
     })
 
     const newBlog = await blog.save()

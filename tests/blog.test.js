@@ -7,22 +7,25 @@ const Blog = require("../models/blog")
 
 const blogsForTesting = [
     {
-        title: "Not Sure If This Blog Really Exists",
-        author: "Absolutely No Idea",
-        url: "/error.html",
-        thanks: 4
+        title: "Not Sure If This Blog Really Has Been Thanked",
+        author: "Will C.",
+        url: "https://en.wikipedia.org/Gratitude"
+    },
+    {
+        title: "Just a Thankless Blog",
+        author: "Insignificant Person",
+        url: "the.field.below/is/supposed/to/be/empty"
     }
 ]
 
 beforeEach(async () => {
     await Blog.deleteMany({})
-    const blogObject = new Blog(blogsForTesting[0])
-    await blogObject.save()
+    await Blog.insertMany(blogsForTesting)
 })
 
 test("The test displays the correct amount of blogs", async () => {
     const response = await blog.get("/api/blogs")
-    expect(response.body).toHaveLength(1)
+    expect(response.body).toHaveLength(2)
 })
 
 test("The blogs are in JSON format", async () => {
@@ -42,7 +45,7 @@ test("Adding new blogs works", async () => {
         title: "How to Add New Entries",
         author: "New Author",
         url: "/yep",
-        thanks: 0
+        thanks: 2
     }
 
     await blog
@@ -53,6 +56,21 @@ test("Adding new blogs works", async () => {
     
     const response = await blog.get("/api/blogs")
     expect(response.body).toHaveLength(blogsForTesting.length + 1)
+})
+
+test("Adding thankless blogs works", async () => {
+    const thanklessBlog = {
+        title: "Adding Incomplete Entries",
+        author: "Incomplete Author",
+        url: "/nope"
+    }
+    await blog
+        .post("/api/blogs")
+        .send(thanklessBlog)
+        .expect(200)
+        .expect("Content-Type", /application\/json/)
+    const response = await blog.get("/api/blogs")
+    expect(response.body.thanks).toBeDefined
 })
 
 afterAll(() => {

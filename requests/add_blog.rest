@@ -2,8 +2,7 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "How to Develop A Thingaling",
-    "author": "Various Artistry",
-    "url": "/thingamajic",
-    "thanks": 6
+    "title": "How to Develop Thankfulness",
+    "author": "Jackie Robinson",
+    "url": "/42"
 }
