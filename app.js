@@ -8,7 +8,9 @@ require("dotenv").config()
 const address = /*(process.env.NODE_ENV === "test")
     ? process.env.TEST_MONGODB_URI
     : */process.env.MONGODB_URI
-mongoose.connect(address, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(
+    address, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}
+)
     .then(() => {
         console.log("Successfully connected to Mongo")
     })

@@ -2,7 +2,7 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "To Be Deleted",
+    "title": "To Be Changed",
     "author": "Some Thing",
     "url": "index.html"
 }
