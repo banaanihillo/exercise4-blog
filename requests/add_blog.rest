@@ -2,7 +2,6 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "How to Develop Thankfulness",
-    "author": "Jackie Robinson",
-    "url": "/42"
+    "author": "Beep Boop",
+    "url": "192.168.0.1"
 }

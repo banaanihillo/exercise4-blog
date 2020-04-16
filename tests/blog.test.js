@@ -73,6 +73,18 @@ test("Adding thankless blogs works", async () => {
     expect(response.body.thanks).toBeDefined
 })
 
+test("Adding a blog with no title or url is a Bad Request(tm)", async () => {
+    const incompleteBlog = {
+        title: "A Blog Whose Address Is Unknown",
+        author: "Jesus of Nazareth",
+        thanks: -2000
+    }
+    await blog
+        .post("/api/blogs")
+        .send(incompleteBlog)
+        .expect(400)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
