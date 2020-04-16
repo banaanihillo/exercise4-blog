@@ -2,6 +2,7 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "author": "Beep Boop",
-    "url": "192.168.0.1"
+    "title": "To Be Deleted",
+    "author": "Some Thing",
+    "url": "index.html"
 }
