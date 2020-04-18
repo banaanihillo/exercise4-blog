@@ -5,18 +5,18 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 require("dotenv").config()
 
-const address = /*(process.env.NODE_ENV === "test")
-    ? process.env.TEST_MONGODB_URI
-    : */process.env.MONGODB_URI
-mongoose.connect(
-    address, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}
-)
-    .then(() => {
-        console.log("Successfully connected to Mongo")
+const address = process.env.MONGODB_URI
+async function connectToMongo() {
+    mongoose.connect(address, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
     })
-    .catch((error) => {
-        console.log(`Could not connect to Mongo: ${error}`)
-    })
+}
+connectToMongo().catch((error) => {
+    console.log(`Could not connect to Mongo: ${error}`)
+})
 
 app.use(cors())
 app.use(express.json())

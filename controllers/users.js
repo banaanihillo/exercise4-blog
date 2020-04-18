@@ -5,15 +5,20 @@ const User = require("../models/user")
 userRouter.post("/", async (request, response) => {
     const body = request.body
     const saltRounds = 10
+    if (!body.password || body.password.length <3) {
+        return response.status(400).json({error: "Password should be longer than 2"})
+    }
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
-    console.log(passwordHash)
+    if (!body.user || body.user.length <3) {
+        return response.status(400).json({error: "Illegal user name"})
+    }
     const user = new User({
         user: body.user,
         name: body.name,
         passwordHash
     })
     const newUser = await user.save()
-    response.json(newUser)
+    response.json(newUser.toJSON())
 })
 
 userRouter.get("/", async (request, response) => {
