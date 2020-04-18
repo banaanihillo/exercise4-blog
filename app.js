@@ -20,6 +20,8 @@ mongoose.connect(
 
 app.use(cors())
 app.use(express.json())
-const router = require("./controllers/blogs")
-app.use("/api/blogs", router)
+const blogRouter = require("./controllers/blogs")
+app.use("/api/blogs", blogRouter)
+const userRouter = require("./controllers/users")
+app.use("/api/users", userRouter)
 module.exports = app
