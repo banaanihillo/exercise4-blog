@@ -2,7 +2,8 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "To Be Changed",
-    "author": "Some Thing",
-    "url": "index.html"
+    "title": "Delicious Recipe",
+    "author": "Chef Cook",
+    "url": "/cook/book",
+    "userId": "5e9b28d8d5fe3d1ec4b3b533"
 }

@@ -1,9 +1,9 @@
-PUT http://localhost:3001/api/blogs/5e984eda1ad65014fc1f0fe9
+PUT http://localhost:3001/api/blogs/5e9c379c8e87341b4049c371
 Content-Type: application/json
 
 {
-    "title": "Complete Overhaul",
-    "author": "Some Kind of Developer",
-    "url": "/info",
-    "thanks": 3
+    "title": "Created by Nobody",
+    "author": "[unassigned]",
+    "url": "/i/think",
+    "thanks": 1
 }
