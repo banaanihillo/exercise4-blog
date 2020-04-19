@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
-content-type: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGlsbG92YWxrb3NpcHVsaSIsImlkIjoiNWU5YjI4ZDhkNWZlM2QxZWM0YjNiNTMzIiwiaWF0IjoxNTg3MzA3MDEzfQ.9kp6F9GPiKdIxeKm4nA4RAYhCU4T_hv_4PExrDgjEzI
 
 {
-    "title": "Delicious Recipe",
-    "author": "Chef Cook",
-    "url": "/cook/book",
-    "userId": "5e9b28d8d5fe3d1ec4b3b533"
+    "title": "Authorized Blog",
+    "author": "A Chef with a Cooking License",
+    "url": "/Ph/D"
 }

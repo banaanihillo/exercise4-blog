@@ -1,6 +1,17 @@
 const blogRouter = require("express").Router()
 const Blog = require("../models/blog")
 const User = require("../models/user")
+const tokenizer = require("jsonwebtoken")
+
+const fetchToken = (request) => {
+    const authorization = request.get("authorization")
+    if (authorization && authorization.toLowerCase().startsWith("bearer ")){
+        return authorization.substring(7)
+    } else {
+        console.log("Something went wrong")
+        return null
+    }
+}
 
 blogRouter.get("/", async (request, response) => {
     const blogs = await Blog
@@ -15,7 +26,16 @@ blogRouter.post("/", async (request, response) => {
     if (!body.title || !body.url) {
         return response.status(400).end()
     }
-    const user = await User.findById(body.userId)
+
+    const token = fetchToken(request)
+    const verifiedToken = tokenizer.verify(token, process.env.SECRET)
+    console.log(verifiedToken)
+    if (!token || !verifiedToken.id) {
+        return response.status(401).json({
+            error: "Incorrect token"
+        })
+    }
+    const user = await User.findById(verifiedToken.id)
 
     const blog = new Blog({
         title: body.title,
@@ -38,11 +58,13 @@ blogRouter.delete("/:id", async (request, response) => {
 
 blogRouter.put("/:id", async (request, response) => {
     const body = request.body
+    const originalValues = await Blog.findById(request.params.id)
+    console.log(originalValues)
     const blog = {
-        title: body.title,
-        author: body.author,
-        url: body.url,
-        thanks: body.thanks
+        title: body.title || originalValues.title,
+        author: body.author || originalValues.author,
+        url: body.url || originalValues.url,
+        thanks: body.thanks || originalValues.thanks
     }
     const modifiedBlog = await Blog.findByIdAndUpdate(
         request.params.id, blog, {new: true})

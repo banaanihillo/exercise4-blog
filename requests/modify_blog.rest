@@ -2,8 +2,5 @@ PUT http://localhost:3001/api/blogs/5e9c379c8e87341b4049c371
 Content-Type: application/json
 
 {
-    "title": "Created by Nobody",
-    "author": "[unassigned]",
-    "url": "/i/think",
-    "thanks": 1
+    "url": "/does/not/show/up/on/users/though"
 }
