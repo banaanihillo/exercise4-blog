@@ -24,4 +24,6 @@ const blogRouter = require("./controllers/blogs")
 app.use("/api/blogs", blogRouter)
 const userRouter = require("./controllers/users")
 app.use("/api/users", userRouter)
+const loginRouter = require("./controllers/login")
+app.use("/api/login", loginRouter)
 module.exports = app
