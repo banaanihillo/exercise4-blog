@@ -19,7 +19,7 @@ connectToMongo().catch((error) => {
 })
 
 const tokenGrabber = (request, response, next) => {
-    console.log(response.originalUrl)
+    console.log("declared but never used:", response.originalUrl)
     const authorization = request.get("authorization")
     if (authorization && authorization.toLowerCase().startsWith("bearer ")){
         request.token = authorization.substring(7)
