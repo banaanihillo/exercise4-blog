@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGlsbG92YWxrb3NpcHVsaSIsImlkIjoiNWU5YjI4ZDhkNWZlM2QxZWM0YjNiNTMzIiwiaWF0IjoxNTg3MzA3MDEzfQ.9kp6F9GPiKdIxeKm4nA4RAYhCU4T_hv_4PExrDgjEzI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGlsbG92YWxrb3NpcHVsaSIsImlkIjoiNWU5YjI4ZDhkNWZlM2QxZWM0YjNiNTMzIiwiaWF0IjoxNTg3MzkwNjEwfQ.49CqicTY7JA_04W8x_7ia1VXTlX9p9GuDKM7ieIh6SI
 
 {
-    "title": "Authorized Blog",
-    "author": "A Chef with a Cooking License",
-    "url": "/Ph/D"
+    "title": "Separating Things Into Other Things",
+    "author": "Middle Ware",
+    "url": "/app"
 }

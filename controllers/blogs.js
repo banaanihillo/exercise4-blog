@@ -3,16 +3,6 @@ const Blog = require("../models/blog")
 const User = require("../models/user")
 const tokenizer = require("jsonwebtoken")
 
-const fetchToken = (request) => {
-    const authorization = request.get("authorization")
-    if (authorization && authorization.toLowerCase().startsWith("bearer ")){
-        return authorization.substring(7)
-    } else {
-        console.log("Something went wrong")
-        return null
-    }
-}
-
 blogRouter.get("/", async (request, response) => {
     const blogs = await Blog
         .find({})
@@ -27,10 +17,8 @@ blogRouter.post("/", async (request, response) => {
         return response.status(400).end()
     }
 
-    const token = fetchToken(request)
-    const verifiedToken = tokenizer.verify(token, process.env.SECRET)
-    console.log(verifiedToken)
-    if (!token || !verifiedToken.id) {
+    const verifiedToken = tokenizer.verify(request.token, process.env.SECRET)
+    if (!verifiedToken.id) {
         return response.status(401).json({
             error: "Incorrect token"
         })

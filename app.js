@@ -18,6 +18,16 @@ connectToMongo().catch((error) => {
     console.log(`Could not connect to Mongo: ${error}`)
 })
 
+const tokenGrabber = (request, response, next) => {
+    console.log(response.originalUrl)
+    const authorization = request.get("authorization")
+    if (authorization && authorization.toLowerCase().startsWith("bearer ")){
+        request.token = authorization.substring(7)
+    }
+    next()
+}
+app.use(tokenGrabber)
+
 app.use(cors())
 app.use(express.json())
 const blogRouter = require("./controllers/blogs")
