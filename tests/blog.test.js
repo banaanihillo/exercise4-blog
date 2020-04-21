@@ -3,7 +3,12 @@ const supertest = require("supertest")
 const app = require("../app")
 const blog = supertest(app)
 const Blog = require("../models/blog")
+const tokenThing = require("jsonwebtoken")
+const User = require("../models/user")
 
+const testUser = {
+    user: "userForTesting"
+}
 
 const blogsForTesting = [
     {
@@ -19,6 +24,10 @@ const blogsForTesting = [
 ]
 
 beforeEach(async () => {
+    await User.deleteMany({})
+    const mongoUser = new User(testUser)
+    testUser.id = mongoUser._id
+    mongoUser.save()
     await Blog.deleteMany({})
     await Blog.insertMany(blogsForTesting)
 })
@@ -42,15 +51,17 @@ test("The blog id is in a suitable format", async () => {
 
 test("Adding new blogs works", async () => {
     const newBlog = {
-        title: "How to Add New Entries",
-        author: "New Author",
-        url: "/yep",
+        title: "How to Add Authorized Entries",
+        author: "Author Ice",
+        url: "/anew",
         thanks: 2
     }
+    const token = tokenThing.sign(testUser, process.env.SECRET)
 
     await blog
         .post("/api/blogs")
         .send(newBlog)
+        .set("Authorization", `Bearer ${token}`)
         .expect(200)
         .expect("Content-Type", /application\/json/)
     
@@ -62,10 +73,12 @@ test("Adding thankless blogs works", async () => {
     const thanklessBlog = {
         title: "Adding Incomplete Entries",
         author: "Incomplete Author",
-        url: "/nope"
+        url: "/no/thanks"
     }
+    const token = tokenThing.sign(testUser, process.env.SECRET)
     await blog
         .post("/api/blogs")
+        .set("Authorization", `Bearer ${token}`)
         .send(thanklessBlog)
         .expect(200)
         .expect("Content-Type", /application\/json/)
@@ -83,6 +96,17 @@ test("Adding a blog with no title or url is a Bad Request(tm)", async () => {
         .post("/api/blogs")
         .send(incompleteBlog)
         .expect(400)
+})
+
+test("Attempting to add a blog without authorization ends up in a 401", async () => {
+    const unauthorizedBlog = {
+        title: "Irrelevant",
+        url: "/forwardslash"
+    }
+    await blog
+        .post("/api/blogs")
+        .send(unauthorizedBlog)
+        .expect(401)
 })
 
 afterAll(() => {

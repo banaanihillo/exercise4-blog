@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGlsbG92YWxrb3NpcHVsaSIsImlkIjoiNWU5YjI4ZDhkNWZlM2QxZWM0YjNiNTMzIiwiaWF0IjoxNTg3MzkwNjEwfQ.49CqicTY7JA_04W8x_7ia1VXTlX9p9GuDKM7ieIh6SI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaGlsbG92YWxrb3NpcHVsaSIsImlkIjoiNWU5YjI4ZDhkNWZlM2QxZWM0YjNiNTMzIiwiaWF0IjoxNTg3NDA0MzU2fQ.t5qpD3D6AKHninzx_qamubTFgm04ysSDf0BEbxWjlig
 
 {
-    "title": "Separating Things Into Other Things",
-    "author": "Middle Ware",
-    "url": "/app"
+    "title": "d",
+    "author": "b",
+    "url": "c"
 }

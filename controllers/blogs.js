@@ -3,20 +3,24 @@ const Blog = require("../models/blog")
 const User = require("../models/user")
 const tokenizer = require("jsonwebtoken")
 
-blogRouter.get("/", async (request, response) => {
+blogRouter.get("/", async (_request, response) => {
     const blogs = await Blog
         .find({})
         .populate("user", {user: 1, name: 1, id: 1})
-    console.log(request.originalUrl)
     response.json(blogs.map(blog => blog.toJSON()))
 })
 
-blogRouter.post("/", async (request, response) => {
+blogRouter.post("/", async (request, response, next) => {
     const body = request.body
     if (!body.title || !body.url) {
         return response.status(400).end()
     }
 
+    if (!request.token) {
+        return response.status(401).json({
+            error: "No token provided"
+        })
+    }
     const verifiedToken = tokenizer.verify(request.token, process.env.SECRET)
     if (!verifiedToken.id) {
         return response.status(401).json({
@@ -37,6 +41,7 @@ blogRouter.post("/", async (request, response) => {
     user.blogs = user.blogs.concat(newBlog.id)
     await user.save()
     response.json(newBlog.toJSON())
+    next()
 })
 
 blogRouter.delete("/:id", async (request, response) => {

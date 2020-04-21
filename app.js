@@ -18,8 +18,7 @@ connectToMongo().catch((error) => {
     console.log(`Could not connect to Mongo: ${error}`)
 })
 
-const tokenGrabber = (request, response, next) => {
-    console.log("declared but never used:", response.originalUrl)
+const tokenGrabber = (request, _response, next) => {
     const authorization = request.get("authorization")
     if (authorization && authorization.toLowerCase().startsWith("bearer ")){
         request.token = authorization.substring(7)
@@ -27,6 +26,17 @@ const tokenGrabber = (request, response, next) => {
     next()
 }
 app.use(tokenGrabber)
+
+const errorHandler = (error, _request, response, next) => {
+    if (error.name === "JsonWebTokenError") {
+        return response.status(401).json({
+            error: "A token is required for postage of a new blog"
+        })
+    }
+    console.log(error.message)
+    next(error)
+}
+app.use(errorHandler)
 
 app.use(cors())
 app.use(express.json())
